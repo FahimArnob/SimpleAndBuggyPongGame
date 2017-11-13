@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+
+<html>
+<body>
+
+<canvas id='game' width='600' height='500'></canvas>
+
+<script>
+var canvas;
+var c;
+var y1, y2, t, l;
+var xb, yb;
+var bump = 20; // Default bumping pixel
+var drag = 2; // Default drag of ball in pixel
+var fps = 20; // Default rendering speed of ball
+var sps = 20; // Default obstacle radar sensing idle period
+var dirx = diry = 1; // Do NOT change it!!
+
+function init(){
+canvas  = document.getElementById('game');
+c = canvas.getContext('2d');
+
+t = 15;
+l = 50;
+y1 = y2 = 500/2-25;
+xb = 600/2;
+yb = 500/2;
+
+c.fillRect(0,0,600,500); // Black Background
+c.fillStyle = 'white';
+c.fillRect(0,y1, t, l); // Player1 - Left Side
+c.fillRect(600-15,y2, t, l); // Player2 - Right Side
+c.beginPath();
+c.arc(xb, yb, 25, 0, 2*Math.PI);
+c.fillStyle = 'red';
+c.fill();
+c.stroke();
+
+// Kick-start ball movement
+setInterval(kickBall, fps);
+
+//Kick-start player detection and bumping
+setInterval(playerSense, sps);
+}
+
+document.addEventListener('keypress', function(event){
+const k = event.key;
+switch(k){
+case '8':
+c.fillStyle = 'black';
+c.clearRect(600-15,y2, t, l);
+c.fillRect(600-15,y2, t, l);
+c.fillStyle = 'white';
+if (y2 > 0)
+	y2 -= bump;
+c.fillRect(600-15,y2, t, l);
+break;
+
+case '5':
+c.fillStyle = 'black';
+c.clearRect(600-15,y2, t, l);
+c.fillRect(600-15,y2, t, l);
+c.fillStyle = 'white';
+if (y2 < (500-l/2))
+	y2 += bump;
+c.fillRect(600-15,y2, t, l);
+break;
+
+case 'w':
+c.fillStyle = 'black';
+c.clearRect(0, y1, t, l);
+c.fillRect(0, y1, t, l);
+c.fillStyle = 'white';
+if (y1 > 0)
+	y1 -= bump;
+c.fillRect(0, y1, t, l);
+break;
+
+case 's':
+c.fillStyle = 'black';
+c.clearRect(0, y1, t, l);
+c.fillRect(0, y1, t, l);
+c.fillStyle = 'white';
+if (y1 < (500-l/2))
+	y1 += bump;
+c.fillRect(0, y1, t, l);
+break;
+
+default:
+alert('Wooops hit ' + k);
+break;
+}
+});
+
+
+function kickBall(){
+c.beginPath();
+c.arc(xb, yb, 25, 0, 2*Math.PI);
+c.fillStyle = 'black';
+c.fill();
+c.stroke();
+
+c.beginPath();
+if(xb < 0 || xb > 600)
+	dirx *= -1;
+if(yb < 0 || yb > 500)
+	diry *= -1;
+
+xb += (drag * dirx);
+yb += (drag * diry);
+
+c.arc(xb, yb, 25, 0, 2*Math.PI);
+c.fillStyle = 'red';
+c.fill();
+c.stroke();
+}
+
+
+function playerSense(){
+var pixl = c.getImageData(xb-28,yb,1,1).data; // RGBA array of surrounding single pixel
+var pixr = c.getImageData(xb+28,yb,1,1).data;
+
+if ((pixl[0]==255 && pixl[1]==255 && pixl[2]==255) || (pixr[0]==255 && pixr[1]==255 && pixr[2]==255))
+	dirx *= -1;
+
+}
+
+
+init();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
