@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-
+<!--PONG GAME 1.0-->
 <html>
 <body>
 
@@ -8,13 +8,13 @@
 <script>
 var canvas;
 var c;
-var y1, y2, t, l;
-var xb, yb;
+var y1, y2, t, l; // t, l = thickness and length of players(Vertical bars)
+var xb, yb; // Moving balls position ref.
 var bump = 20; // Default bumping pixel
 var drag = 2; // Default drag of ball in pixel
 var fps = 20; // Default rendering speed of ball
 var sps = 20; // Default obstacle radar sensing idle period
-var dirx = diry = 1; // Do NOT change it!!
+var dirx = diry = 1; // Do NOT change it!! // Key to simulate reflection
 
 function init(){
 canvas  = document.getElementById('game');
@@ -115,95 +115,16 @@ c.fill();
 c.stroke();
 }
 
-
 function playerSense(){
 var pixl = c.getImageData(xb-28,yb,1,1).data; // RGBA array of surrounding single pixel
 var pixr = c.getImageData(xb+28,yb,1,1).data;
 
 if ((pixl[0]==255 && pixl[1]==255 && pixl[2]==255) || (pixr[0]==255 && pixr[1]==255 && pixr[2]==255))
 	dirx *= -1;
-
 }
-
 
 init();
 </script>
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!--END OF CODE-->
